@@ -16,7 +16,8 @@ Type in mongod into a terminal window. The server will run in the terminal windo
 Then, open up a new terminal window and type in mongo, this will create a connection to the server that we just opened. Type in db to display the list of existing dbs (should just have the sample test.db)
 
 Remember that at this point you will have two terminals open.
-#
+
+# 
 
 ## 2. Creating Databases and Inserting Data
 
@@ -80,7 +81,7 @@ In the above, nInserted indicates the number of new entries inserted.
 Remember:
 Inside a database, you have collections, inside collections you have entries or documents.
 
-#
+# 
 
 ## 3. Updating, Removing, and Collections
 
@@ -107,3 +108,13 @@ To remove the record, we use this command:
 * Takes two criteria. (1) The selection criteria and (2) the updated information.
 
 ![Preview](https://i.imgur.com/gI9rNL7.png)
+
+
+**db.collections.drop()**
+
+* This will just drop the collection on which the drop() method is invoked.
+
+
+#
+
+## 4. Find and Search Query
