@@ -32,11 +32,15 @@ A database is made of different collections, or similar data. For instance, all 
 
 * Check what current database you are in.
 
+        db
+
 **use**
 
 * Checks if there is a database.
 * If database exists, it will switch to the database.
 * If the database does not exist, it will create then switch into the database.
+
+        use players
 
 **db.dropDatabase()**
 * Deletes the database.
@@ -99,20 +103,35 @@ To remove the record, we use this command:
 
 * Takes one parameter. The selection criteria.
 
-![Preview](https://i.imgur.com/5Jmonp7.png)
+        db.players.remove(
+            {"_id" : ObjectId("5cf6a8b23f2b2a8cc9b57c97")}
+            )
 
-* Running db.players.find() will reveal that this first entry was indeed removed from the collection players.
+Running db.players.find() will reveal that this first entry was indeed removed from the collection players.
 
 **db.collections.update()**
 
 * Takes two criteria. (1) The selection criteria and (2) the updated information.
 
-![Preview](https://i.imgur.com/gI9rNL7.png)
-
+        db.players.update(
+            {"_id" : ObjectId("5cf6a8b23f2b2a8cc9b57c98")},
+            {"position" : "Left Wing",
+            "id" : 8475761,
+            "weight" : 195,
+            "height" : "6' 2\"",
+            "imageUrl" : "http://1.cdn.nhle.com/photos/mugs/8475761.jpg",
+            "birthplace" : "Gardena, CA, USA",
+            "age" : 23,
+            "name" : "Bob Bennett",
+            "birthdate" : "November 27, 1991",
+            "number" : 19}
+        )
 
 **db.collections.drop()**
 
 * This will just drop the collection on which the drop() method is invoked.
+
+        db.players.drop()
 
 
 #
@@ -182,3 +201,28 @@ _id, or the object's unique idea is returned on default, so it must be specified
 Respectively, .limit(3) will limit the results to three.
 
 Meanwhile .skip(2) skips the first two results of the query.
+
+## 5. Indexing
+Bank data from [this json](https://github.com/buckyroberts/Source-Code-from-Tutorials/blob/master/Other/SampleJsonData/fake_bank_data.json)
+
+Create users collection and import data through below:
+
+        db.users.insert(
+            {[data]}
+            )
+
+Finding age of users that are 23 or younger:
+
+        db.users.find(
+            {'age':{$lte:(23)}}
+        )
+
+Execution results.
+
+        db.users.find(
+            {'age':{$lte:(23)}}
+        ).explain("executionStats")
+
+The totalDocsExamined returns 35 results, it queries the database 35 time, which is inefficient if you have 100,000 or 1 million users.
+
+This is where indexing comes into play.
