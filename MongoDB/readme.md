@@ -17,7 +17,7 @@ Then, open up a new terminal window and type in mongo, this will create a connec
 
 Remember that at this point you will have two terminals open.
 
-# 
+
 
 ## 2. Creating Databases and Inserting Data
 
@@ -85,7 +85,7 @@ In the above, nInserted indicates the number of new entries inserted.
 Remember:
 Inside a database, you have collections, inside collections you have entries or documents.
 
-# 
+
 
 ## 3. Updating, Removing, and Collections
 
@@ -133,8 +133,6 @@ Running db.players.find() will reveal that this first entry was indeed removed f
 
         db.players.drop()
 
-
-#
 
 ## 4. Find and Search Query
 
@@ -253,3 +251,52 @@ To drop indexes:
 Generally, you want to only index the columns you search for frequently. 
 
 ## 6. Aggregate Functions
+
+You can have groups of data that you perform calculations on, such as finding out how many people have a certain attribute.
+
+* Example
+
+        db.users.aggregate({
+            $group : {
+                _id : "$eyeColor",
+                total : {$sum : 1}
+            }
+        })
+
+First, this groups all documents together by eyeColor.
+
+Then sum all the groups in eyeColor, which will be brown, green, and blue.
+
+This also works for gender.
+
+* Example
+
+        db.users.aggregate({
+            $group : {
+                _id : "$gender",
+                total : {$sum : 1}
+            }
+        })
+
+
+You can also find averages.
+
+* Example
+
+        db.users.aggregate({
+            $group : {
+                _id : "$gender",
+                avgAge : {$avg : '$age'}
+            }
+        })
+
+...and the maximum.
+
+* Example
+
+        db.users.aggregate({
+            $group : {
+                _id : "$gender",
+                richest : {$max : '$balance'}
+            }
+        })
