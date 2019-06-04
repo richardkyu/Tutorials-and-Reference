@@ -9,17 +9,19 @@ NoSQL - a movement where you can save data to a database without using tables, w
 
 Install from [MongoDB website](https://www.mongodb.com/)
 
-### 1. Basic Server Access on Mac.
+## 1. Basic Server Access on Mac.
 
 Type in mongod into a terminal window. The server will run in the terminal window.
 
 Then, open up a new terminal window and type in mongo, this will create a connection to the server that we just opened. Type in db to display the list of existing dbs (should just have the sample test.db)
 
 Remember that at this point you will have two terminals open.
+#
 
-### 2. Basic commands in MongoDB
+## 2. Creating Databases and Inserting Data
 
-**A. How to create a new database**
+
+**How to create a new database**
 
 Whenever you create a new website or new project, you'll want to create a new database for it - it's a container for all the data on your website.
 
@@ -40,42 +42,68 @@ A database is made of different collections, or similar data. For instance, all 
 
 Anytime new info is inserted, it must go into a collection.
 
-**db.[collections].insert()**
+**db.collections.insert()**
 
-Collections should be the name of your collection. In this example it is players, so the command is db.players.insert().
+* Collections should be the name of your collection. In this example it is players, so the command is db.players.insert().
 
-You can insert data as entries one-by-one by putting the data entry in as an argument for insert.
+* You can insert data as entries one-by-one by putting the data entry in as an argument for insert.
 
-You can bulk insert via: **db.collections.insert([a,b,c])** where a, b, and c denote separate entries, where the [] denotes a bulk insert, and where commas denote distinct entries.
+* You can bulk insert via: **db.collections.insert([a,b,c])** where a, b, and c denote separate entries, where the [] denotes a bulk insert, and where commas denote distinct entries.
 
-The result of a bulk insert is show here. 
+The result of a bulk insert is shown here.
+
 ![Preview](https://i.imgur.com/KP9OgoK.png)
 
 In the above, nInserted indicates the number of new entries inserted.
 
 **show collections**
 
-If you want to see all the collections within a database, use this command.
+* If you want to see all the collections within a database, use this command.
 
-**db.[collections].find()**
+**db.collections.find()**
 
-Remember that collections is the name of the collection you want to query the entries (also known as documents) for.
+* Remember that collections is the name of the collection you want to query the entries (also known as documents) for.
 
 ![Preview](https://i.imgur.com/EhSMOD9.png)
 
-If you want to format the entries in a collection, you can use the following command.
+**db.collections.find().pretty()**
 
-**db.[collections].find().pretty()**
+* If you want to format the entries in a collection, you can use the following command.
 
 ![Preview](https://i.imgur.com/BHuQsgD.png)
 
-**db.[collections].findOne()**
+**db.collections.findOne()**
 
-Finds the first entry.
+* Finds the first entry.
 
 
 Remember:
 Inside a database, you have collections, inside collections you have entries or documents.
 
+#
 
-### 3. Creating Databases and Inserting Data
+## 3. Updating, Removing, and Collections
+
+"_id" : ObjectID() is mongo's way of differentiating between two entries with similar attributes.
+
+Above, we have the player Craig Adams' unique identifier displayed as the following:
+
+**"_id" : ObjectId("5cf69d5a2e7e76cb23287751")**
+
+Suppose there were two players with the same name. If you wanted to delete that record from the collection, then you would end up deleting all players with that name, so you use the ObjectId to specify which only exactly should be deleted.
+
+To remove the record, we use this command:
+
+**db.collections.remove()**
+
+* Takes one parameter. The selection criteria.
+
+![Preview](https://i.imgur.com/5Jmonp7.png)
+
+* Running db.players.find() will reveal that this first entry was indeed removed from the collection players.
+
+**db.collections.update()**
+
+* Takes two criteria. (1) The selection criteria and (2) the updated information.
+
+![Preview](https://i.imgur.com/gI9rNL7.png)
