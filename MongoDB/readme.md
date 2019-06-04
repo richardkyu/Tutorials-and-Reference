@@ -226,3 +226,30 @@ Execution results.
 The totalDocsExamined returns 35 results, it queries the database 35 time, which is inefficient if you have 100,000 or 1 million users.
 
 This is where indexing comes into play.
+
+* Example:
+
+        db.users.ensureIndex(
+            {'age':1}
+        )
+
+Above, 1 means true, or create an index for that key.
+
+        db.users.getIndexes()
+
+        db.users.find(
+            {'age':{$lte:(23)}}
+
+        ).explain("executionStats")
+
+Will return totalDocsExamined as 4.
+
+To drop indexes:
+        
+        db.users.dropIndex(
+            {'age':1}
+        )
+
+Generally, you want to only index the columns you search for frequently. 
+
+## 6. Aggregate Functions
