@@ -118,3 +118,67 @@ To remove the record, we use this command:
 #
 
 ## 4. Find and Search Query
+
+**db.collections.find({key:value})**
+
+* Example: 
+        
+        db.players.find(
+            {"position":"Goalie"}
+            )
+
+You can include more than one search criteria using "and" logic.
+* Example: 
+
+        db.players.find(
+            {"position":"Defenseman", 
+            "age":21}
+            )
+
+Using "or" criteria for more than one criteria.
+* Example: 
+
+        db.players.find({
+            $or:[
+                {"position":"Right Wing"},
+                {"position":"Left Wing"}
+            ]
+        })
+
+This statement above will find the players occupying either right wing or left wing positions.
+
+
+* Example:
+
+        db.players.find(
+            {'age':{$gt:30}}
+        )
+
+Other quantitative operators: $gt, $lt, $gte, $lte, $ne
+
+
+* Example:
+
+        db.players.find(
+            {'position':"Center"},
+            {'name':1, _id:0}
+        )
+
+This will return all centers in the league., but just the names of the centers. 
+_id, or the object's unique idea is returned on default, so it must be specified to be 0.
+
+* Example:
+
+        db.players.find(
+            {'position':"Center"},
+            {'name':1, _id:0}
+        ).limit(3)
+
+        db.players.find(
+            {'position':"Center"},
+            {'name':1, _id:0}
+        ).skip(2)
+
+Respectively, .limit(3) will limit the results to three.
+
+Meanwhile .skip(2) skips the first two results of the query.
